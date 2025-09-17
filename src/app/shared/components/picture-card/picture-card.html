@@ -1,0 +1,32 @@
+<div class="flex flex-col gap-2">
+  <div class="flex justify-between items-center gap-1">
+    <div class="flex gap-1 text-[#A8A8A8]">
+      <h2 class="text-white">{{ picture().author.displayName }}</h2>
+      <p>•</p>
+      <p>2j</p>
+    </div>
+    <p class="text-2xl">...</p>
+  </div>
+
+  <img [src]="picture().image" [alt]="" class="object-cover rounded-sm border-1 border-[#262626]" />
+
+  <div class="flex justify-between items-center mt-1">
+    <div class="flex gap-4">
+      <lucide-angular [img]="Heart"></lucide-angular>
+      <lucide-angular [img]="Comment"></lucide-angular>
+      <lucide-angular [img]="Send"></lucide-angular>
+    </div>
+    <div class="">
+      <lucide-angular [img]="Bookmark"></lucide-angular>
+    </div>
+  </div>
+
+  <p class="font-semibold text-sm">{{ picture().likes.length }} J'aime</p>
+  <div class="flex gap-2">
+    <h3>{{ picture().author.displayName }}</h3>
+    <p>{{ picture().title }}</p>
+  </div>
+
+  <div class="">
+  </div>
+</div>

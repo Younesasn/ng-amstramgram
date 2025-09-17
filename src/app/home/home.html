@@ -1,0 +1,11 @@
+<div class="flex flex-col gap-6 max-w-max mx-auto">
+  @if (pictures.isLoading()) {
+    <p>Chargement des Posts... 🪫</p>
+  }
+
+  @if (pictures.hasValue()) {
+    @for (picture of pictures.value().content; track picture.id) {
+      <app-picture-card [picture]="picture" />
+    }
+  }
+</div>
