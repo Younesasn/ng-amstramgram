@@ -18,6 +18,12 @@ export class Login {
     password: new FormControl('', { validators: [Validators.required, Validators.minLength(4)] }),
   });
 
+  constructor() {
+    if (this.authApi.isLogged()) {
+      this.router.navigate(['/']);
+    }
+  }
+
   onSubmit() {
     if (this.form.valid) {
       this.authApi.login(this.form.value).subscribe({

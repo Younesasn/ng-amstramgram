@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthApi } from '../../api/auth-api';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,6 @@ export class Header {
   protected readonly links = signal([
     { path: '/', name: 'Accueil' },
     { path: '', name: 'Créer' },
-    { path: 'logout', name: 'Se déconnecter' },
   ]);
+  protected readonly authApi = inject(AuthApi);
 }

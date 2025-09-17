@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { User } from '../interfaces';
 import { tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,19 @@ import { tap } from 'rxjs';
 export class AuthApi {
   private readonly http = inject(HttpClient);
   protected user = signal<User | null>(null);
+  private readonly router = inject(Router);
+  readonly logged = computed(() => this.user() != null);
+
+  constructor() {
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        this.user.set(JSON.parse(storedUser));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   login({ username, password }: { username: string; password: string }) {
     return this.http
@@ -24,5 +38,15 @@ export class AuthApi {
           this.user.set(user);
         }),
       );
+  }
+
+  isLogged() {
+    return this.logged();
+  }
+
+  logout() {
+    this.user.set(null);
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 }

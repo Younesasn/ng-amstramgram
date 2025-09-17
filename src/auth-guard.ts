@@ -1,7 +1,15 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { AuthApi } from './app/shared/api/auth-api';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  return true;
+  const authApi = inject(AuthApi);
+
+  if (authApi.isLogged()) {
+    return true;
+  } else {
+    router.navigate(['/login']);
+    return false;
+  }
 };
