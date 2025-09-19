@@ -1,0 +1,40 @@
+<ul class="flex justify-between">
+  @if (!paginated().first) {
+    <li class="underline underline-offset-2">
+      <a
+        routerLink="./"
+        [queryParams]="{ pageNumber: pageNumber() - 1 }"
+        queryParamsHandling="merge"
+        >Précédent</a
+      >
+    </li>
+  } @else {
+    <div class="w-10"></div>
+  }
+  <li class="flex gap-4">
+    @for (item of [].constructor(paginated().totalPages); track $index) {
+      @let currPage = $index + 1;
+      <ul>
+        <a
+          routerLink="./"
+          [queryParams]="{ pageNumber: currPage }"
+          queryParamsHandling="merge"
+          [class]="pageNumber() == currPage ? 'text-white/70' : ''"
+          >{{ currPage }}</a
+        >
+      </ul>
+    }
+  </li>
+  @if (!paginated().last) {
+    <li class="underline underline-offset-2">
+      <a
+        routerLink="./"
+        [queryParams]="{ pageNumber: pageNumber() + 1 }"
+        queryParamsHandling="merge"
+        >Suivant</a
+      >
+    </li>
+  } @else {
+    <div class="w-10"></div>
+  }
+</ul>

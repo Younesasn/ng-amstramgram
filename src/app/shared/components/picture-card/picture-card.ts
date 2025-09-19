@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
 import { Picture } from '../../interfaces';
 import { Bookmark, Heart, LucideAngularModule, MessageCircle, Send } from 'lucide-angular';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-picture-card',
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, RouterLink],
   standalone: true,
   templateUrl: './picture-card.html',
 })

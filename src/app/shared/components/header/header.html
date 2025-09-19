@@ -1,5 +1,5 @@
 <aside
-  class="max-lg:hidden fixed top-0 left-0 h-screen w-64 border-r border-gray-800 bg-black text-gray-100"
+  class="max-lg:hidden fixed top-0 left-0 h-screen w-64 border-r border-[#262626] bg-black text-gray-100"
 >
   <div class="p-6">
     <h1 class="text-2xl font-semibold tracking-tight text-white">AmStramGram</h1>
@@ -11,7 +11,7 @@
           <a
             [routerLink]="item.path"
             routerLinkActive="bg-neutral-800 text-white"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 text-gray-300 hover:bg-neutral-800 hover:text-white transition"
+            class="flex items-center gap-3 rounded-xl px-4 py-3 text-gray-300 hover:bg-[#262626] hover:text-white transition"
           >
             {{ item.name }}
           </a>
@@ -19,7 +19,7 @@
       }
       <li>
         <p
-          class="flex items-center gap-3 rounded-xl px-4 py-3 text-gray-300 hover:bg-neutral-800 hover:text-white transition hover:cursor-pointer"
+          class="flex items-center gap-3 rounded-xl px-4 py-3 text-gray-300 hover:bg-[#262626] hover:text-white transition hover:cursor-pointer"
           (click)="authApi.logout()"
         >
           Se déconnecter
@@ -27,11 +27,12 @@
       </li>
     </ul>
   </nav>
-  <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-800">
-    <button
-      class="w-full rounded-lg bg-white text-black py-2.5 text-sm hover:bg-gray-200 transition"
+  <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-[#262626]">
+    <div
+      class="w-full rounded-lg text-center cursor-pointer bg-white text-black py-2.5 text-sm hover:bg-white/80 transition"
+      [routerLink]="'profile/' + authApi.user()?.id"
     >
       Profil
-    </button>
+    </div>
   </div>
 </aside>

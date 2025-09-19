@@ -23,7 +23,6 @@ export interface Picture {
   description: string;
   title: string;
   createdAt: Date;
-  comments: Comment[];
   author: User;
   likes: User[];
 }

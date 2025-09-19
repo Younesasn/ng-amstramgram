@@ -1,14 +1,27 @@
-<div class="flex flex-col gap-2">
-  <div class="flex justify-between items-center gap-1">
-    <div class="flex gap-1 text-[#A8A8A8]">
-      <h2 class="text-white">{{ picture().author.displayName }}</h2>
-      <p>•</p>
-      <p>2j</p>
+<div class="flex flex-col gap-2 pb-4">
+  <div class="flex flex-col gap-3">
+    <div class="flex justify-between items-center gap-1">
+      <div class="flex gap-1 text-[#A8A8A8] items-center">
+        <a [routerLink]="'/profile/' + picture().author.id" class="flex items-center gap-2">
+          <div
+            class="h-8 w-8 bg-amber-200 rounded-full outline-[3px] outline-offset-1 outline-pink-700"
+          >
+            <img src="" alt="" />
+          </div>
+          <h2 class="text-white font-semibold">{{ picture().author.displayName }}</h2>
+        </a>
+        <p>•</p>
+        <p>2j</p>
+      </div>
+      <p class="text-2xl">...</p>
     </div>
-    <p class="text-2xl">...</p>
-  </div>
 
-  <img [src]="picture().image" [alt]="" class="object-cover rounded-sm border-1 border-[#262626]" />
+    <img
+      [src]="picture().image"
+      [alt]=""
+      class="object-cover rounded-sm border-1 border-[#262626]"
+    />
+  </div>
 
   <div class="flex justify-between items-center mt-1">
     <div class="flex gap-4">
@@ -16,9 +29,8 @@
       <lucide-angular [img]="Comment"></lucide-angular>
       <lucide-angular [img]="Send"></lucide-angular>
     </div>
-    <div class="">
-      <lucide-angular [img]="Bookmark"></lucide-angular>
-    </div>
+    
+    <lucide-angular [img]="Bookmark"></lucide-angular>
   </div>
 
   <p class="font-semibold text-sm">{{ picture().likes.length }} J'aime</p>
@@ -27,6 +39,5 @@
     <p>{{ picture().title }}</p>
   </div>
 
-  <div class="">
-  </div>
+  <h4 class="text-sm font-semibold text-[#A8A8A8] space-y-2">Voir les commentaires</h4>
 </div>

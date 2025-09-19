@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AuthApi {
   private readonly http = inject(HttpClient);
-  protected user = signal<User | null>(null);
+  user = signal<User | null>(null);
   private readonly router = inject(Router);
   readonly logged = computed(() => this.user() != null);
 

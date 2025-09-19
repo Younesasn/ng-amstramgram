@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-6 max-w-max mx-auto">
+<div class="flex flex-col gap-4 max-w-max mx-auto divide-y-2 divide-[#262626]">
   @if (pictures.isLoading()) {
     <p>Chargement des Posts... 🪫</p>
   }
@@ -7,5 +7,15 @@
     @for (picture of pictures.value().content; track picture.id) {
       <app-picture-card [picture]="picture" />
     }
+
+    @if (pictures.hasValue() && pictures.value().totalElements > 0) {
+      <app-pagination [pageNumber]="pageNumber()" [paginated]="pictures.value()" />
+    }
+  } @else {
+    <p>Pas de posts</p>
   }
 </div>
+
+<aside class="max-lg:hidden fixed top-0 right-0 h-screen w-64 p-6">
+  <h2>coucou</h2>
+</aside>
