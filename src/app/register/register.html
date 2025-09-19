@@ -8,11 +8,21 @@
       <input
         required
         type="email"
-        name="username"
-        id="username"
+        name="email"
+        id="email"
         placeholder="Email"
+        autocomplete="email"
+        formControlName="email"
+        class="rounded-sm ring-1 focus:outline-white placeholder:text-white/70 bg-white/20 h-8 px-2 placeholder:text-sm"
+      />
+      <input
+        required
+        type="text"
+        name="displayName"
+        id="displayName"
+        placeholder="Nom d'utilisateur"
         autocomplete="username"
-        formControlName="username"
+        formControlName="displayName"
         class="rounded-sm ring-1 focus:outline-white placeholder:text-white/70 bg-white/20 h-8 px-2 placeholder:text-sm"
       />
       <input
@@ -25,8 +35,18 @@
         formControlName="password"
         class="rounded-sm ring-1 focus:outline-white placeholder:text-white/70 bg-white/20 h-8 px-2 placeholder:text-sm"
       />
+      <input
+        required
+        type="password"
+        name="confirmPassword"
+        id="confirmPassword"
+        placeholder="Répétez le mot de passe"
+        autocomplete="current-password"
+        formControlName="confirmPassword"
+        class="rounded-sm ring-1 focus:outline-white placeholder:text-white/70 bg-white/20 h-8 px-2 placeholder:text-sm"
+      />
       <p class="text-center">
-        Pas de compte ? <a routerLink="../register" class="text-blue-400 hover:text-blue-400/90">Inscrivez-vous</a>
+        Déjà inscrit ? <a routerLink="../login" class="text-blue-400 hover:text-blue-400/90">Connectez-vous</a>
       </p>
       <div class="flex flex-col">
         <button
@@ -34,7 +54,7 @@
           class="hover:cursor-pointer bg-[#3441AE] px-4 py-2 rounded-lg hover:scale-105 transition-all disabled:hover:scale-100 disabled:hover:cursor-auto disabled:bg-[#3441AE]/80 disabled:text-white/80"
           [disabled]="form.invalid"
         >
-          Se connecter
+          S'inscrire
         </button>
       </div>
     </form>

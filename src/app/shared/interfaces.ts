@@ -17,6 +17,12 @@ export interface User {
   favourites: Picture[];
 }
 
+export interface Register {
+  email: string;
+  displayName: string;
+  password: string;
+}
+
 export interface Picture {
   id: number;
   image: string;

@@ -4,6 +4,7 @@ import { Login } from './login/login';
 import { authGuard } from './shared/auth-guard';
 import { DashboardLayout } from './shared/layout/dashboard-layout/dashboard-layout';
 import { Profile } from './profile/profile';
+import { Register } from './register/register';
 
 export const routes: Routes = [
   {
@@ -16,4 +17,5 @@ export const routes: Routes = [
     ],
   },
   { path: 'login', component: Login },
+  { path: 'register', component: Register },
 ];

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { User } from '../interfaces';
+import { Register, User } from '../interfaces';
 import { tap } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -40,8 +40,22 @@ export class AuthApi {
       );
   }
 
+  register(registerForm: Register) {
+    return this.http.post<User>('/api/user', registerForm).pipe(
+      tap((user: User) => {
+        this.login({ username: user.email, password: registerForm.password });
+      }),
+    );
+  }
+
   isLogged() {
     return this.logged();
+  }
+
+  redirect() {
+    if (this.isLogged()) {
+      this.router.navigate(['/']);
+    }
   }
 
   logout() {

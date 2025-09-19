@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthApi } from '../shared/api/auth-api';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   standalone: true,
   templateUrl: './login.html',
 })
@@ -19,9 +19,7 @@ export class Login {
   });
 
   constructor() {
-    if (this.authApi.isLogged()) {
-      this.router.navigate(['/']);
-    }
+    this.authApi.redirect();
   }
 
   onSubmit() {
