@@ -1,6 +1,6 @@
 import { httpResource } from '@angular/common/http';
 import { Injectable, Signal } from '@angular/core';
-import { Comment, Page, Picture } from '../interfaces';
+import { Page, Picture } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -18,15 +18,11 @@ export class PictureApi {
     });
   }
 
-  get(id: string | number) {
-    return httpResource<Page<Picture>>(() => '/api/picture/' + id);
+  get(id: Signal<number | string>) {
+    return httpResource<Picture>(() => '/api/picture/' + id());
   }
 
-  getComment(id: string | number) {
-    return httpResource<Comment[]>(() => '/api/picture/' + id + '/comment');
-  }
-
-  getPictureByUserId(id: string | number) {
-    return httpResource<Picture[]>(() => '/api/picture/user/' + id);
+  getPictureByUserId(id: Signal<number | string>) {
+    return httpResource<Picture[]>(() => '/api/picture/user/' + id());
   }
 }

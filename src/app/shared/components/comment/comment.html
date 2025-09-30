@@ -1,0 +1,102 @@
+@if (comments.isLoading() || picture.isLoading()) {
+  <div class="">En chargement</div>
+}
+
+@if (picture.hasValue() && comments.hasValue()) {
+  <section class="flex bg-[#202328] rounded-lg w-full">
+    <img [src]="picture.value().image" alt="" class="min-h-[95vh]" />
+    <!-- Comments section -->
+    <div class="flex-1 flex flex-col justify-between">
+      <!-- Author -->
+      <div class="">
+        <div class="flex justify-between w-full p-4">
+          <a [routerLink]="'/profile/' + picture.value().author.id" class="flex items-center gap-4">
+            <div
+              class="h-8 w-8 bg-amber-200 rounded-full outline-[3px] outline-offset-1 outline-pink-700"
+            >
+              <img src="" alt="" />
+            </div>
+            <div>
+              <h2 class="font-semibold">{{ picture.value().author.displayName }}</h2>
+              <p class="text-sm">{{ picture.value().title }}</p>
+            </div>
+          </a>
+          <lucide-angular [img]="Cross" (click)="back()" class="hover:cursor-pointer" />
+        </div>
+
+        <div class="h-[1px] bg-black"></div>
+
+        <div class="flex items-center p-4 gap-2">
+          <a [routerLink]="'/profile/' + picture.value().author.id" class="flex items-center gap-4">
+            <img
+              src=""
+              alt=""
+              class="h-8 w-8 bg-amber-200 rounded-full outline-[3px] outline-offset-1 outline-pink-700"
+            />
+            <h2 class="font-semibold">{{ picture.value().author.displayName }}</h2>
+          </a>
+          <p>
+            {{ picture.value().description }}
+          </p>
+        </div>
+
+        @for (comment of comments.value(); track comment.id) {
+          <div class="flex items-center p-4 gap-2">
+            <a [routerLink]="'/profile/' + comment.id" class="flex items-center gap-4">
+              <img
+                src=""
+                alt=""
+                class="h-8 w-8 bg-amber-200 rounded-full outline-[3px] outline-offset-1 outline-pink-700"
+              />
+              <h2 class="font-semibold">{{ comment.author.displayName }}</h2>
+            </a>
+            <p>
+              {{ comment.content }}
+            </p>
+          </div>
+        }
+      </div>
+
+      <div>
+        <div class="space-y-4 px-4 py-4">
+          <div class="flex justify-between items-center mt-1">
+            <div class="flex gap-4">
+              <lucide-angular [img]="Heart"></lucide-angular>
+              <lucide-angular [img]="Comment"></lucide-angular>
+              <lucide-angular [img]="Send"></lucide-angular>
+            </div>
+
+            <lucide-angular [img]="Bookmark"></lucide-angular>
+          </div>
+          <div>
+            <p class="font-semibold text-sm">{{ picture.value().likes.length }} J'aime</p>
+            <p class="text-[#A8A8A8] text-xs">il y a x heures</p>
+          </div>
+        </div>
+        <div class="h-[1px] bg-black"></div>
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <div class="flex items-center justify-between w-full px-4">
+            <div class="flex items-center w-full">
+              <lucide-angular [img]="Smile" class="size-6" />
+              <input
+                type="text"
+                name="content"
+                id="content"
+                formControlName="content"
+                placeholder="Ajoutez un commentaire..."
+                class="w-full p-4 placeholder:text-[#A8A8A8] placeholder:text-sm outline-none"
+              />
+            </div>
+            <button
+              type="submit"
+              class="font-semibold text-sm disabled:text-[#A8A8A8] hover:underline hover:cursor-pointer disabled:no-underline disabled:cursor-auto"
+              [disabled]="form.invalid"
+            >
+              Publier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+}
