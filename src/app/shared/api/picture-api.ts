@@ -1,11 +1,12 @@
-import { httpResource } from '@angular/common/http';
-import { Injectable, Signal } from '@angular/core';
+import { HttpClient, httpResource } from '@angular/common/http';
+import { inject, Injectable, Signal } from '@angular/core';
 import { Page, Picture } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PictureApi {
+  private readonly http = inject(HttpClient);
   getAll(page?: Signal<number>) {
     return httpResource<Page<Picture>>(() => {
       const params: any = {
@@ -24,5 +25,9 @@ export class PictureApi {
 
   getPictureByUserId(id: Signal<number | string>) {
     return httpResource<Picture[]>(() => '/api/picture/user/' + id());
+  }
+
+  likePicture(id: number) {
+    return this.http.patch<Picture>('/api/picture/' + id + '/like', {});
   }
 }

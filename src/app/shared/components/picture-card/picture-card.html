@@ -30,15 +30,31 @@
 
   <div class="flex justify-between items-center mt-1">
     <div class="flex gap-4">
-      <lucide-angular [img]="Heart" class="hover:scale-105"></lucide-angular>
-      <a [routerLink]="`post/` + picture().id"><lucide-angular [img]="Comment" class="hover:scale-105"></lucide-angular></a>
-      <lucide-angular [img]="Send"></lucide-angular>
+      @if (isLiked()) {
+        <!-- Like coloré -->
+        <lucide-angular
+          [img]="Heart"
+          class="hover:scale-105 hover:cursor-pointer fill-red-500"
+          color=""
+          (click)="like()"
+        />
+      } @else {
+        <lucide-angular
+          [img]="Heart"
+          class="hover:scale-105 hover:cursor-pointer"
+          (click)="like()"
+        />
+      }
+      <a [routerLink]="`post/` + picture().id">
+        <lucide-angular [img]="Comment" class="hover:scale-105" />
+      </a>
+      <lucide-angular [img]="Send" />
     </div>
 
-    <lucide-angular [img]="Bookmark"></lucide-angular>
+    <lucide-angular [img]="Bookmark" />
   </div>
 
-  <p class="font-semibold text-sm">{{ picture().likes.length }} J'aime</p>
+  <p class="font-semibold text-sm">{{ likes() }} J'aime</p>
   <div class="flex gap-2">
     <h3>{{ picture().author.displayName }}</h3>
     <p>{{ picture().description }}</p>
