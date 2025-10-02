@@ -59,8 +59,13 @@ export class AuthApi {
   }
 
   logout() {
-    this.user.set(null);
-    localStorage.clear();
-    this.router.navigate(['login']);
+    return this.http.post('/api/logout', {}).subscribe({
+      next: () => {
+        this.user.set(null);
+        localStorage.clear();
+        this.router.navigate(['login']);
+      },
+      error: (error) => console.log(error),
+    });
   }
 }
