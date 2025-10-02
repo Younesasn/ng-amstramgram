@@ -11,11 +11,7 @@
       <div class="">
         <div class="flex justify-between w-full p-4">
           <a [routerLink]="'/profile/' + picture.value().author.id" class="flex items-center gap-4">
-            <div
-              class="h-8 w-8 bg-amber-200 rounded-full outline-[3px] outline-offset-1 outline-pink-700"
-            >
-              <img src="" alt="" />
-            </div>
+            <img src="/images/pdp.png" alt="" class="h-10 w-10 rounded-full" />
             <div>
               <h2 class="font-semibold">{{ picture.value().author.displayName }}</h2>
               <p class="text-sm">{{ picture.value().title }}</p>
@@ -28,11 +24,7 @@
 
         <div class="flex items-center p-4 gap-2">
           <a [routerLink]="'/profile/' + picture.value().author.id" class="flex items-center gap-4">
-            <img
-              src=""
-              alt=""
-              class="h-8 w-8 bg-amber-200 rounded-full outline-[3px] outline-offset-1 outline-pink-700"
-            />
+            <img src="/images/pdp.png" alt="" class="h-10 w-10 rounded-full" />
             <h2 class="font-semibold">{{ picture.value().author.displayName }}</h2>
           </a>
           <p>
@@ -43,11 +35,7 @@
         @for (comment of comments.value(); track comment.id) {
           <div class="flex items-center p-4 gap-2">
             <a [routerLink]="'/profile/' + comment.id" class="flex items-center gap-4">
-              <img
-                src=""
-                alt=""
-                class="h-8 w-8 bg-amber-200 rounded-full outline-[3px] outline-offset-1 outline-pink-700"
-              />
+              <img src="/images/pdp.png" alt="" class="h-10 w-10 rounded-full" />
               <h2 class="font-semibold">{{ comment.author.displayName }}</h2>
             </a>
             <p>

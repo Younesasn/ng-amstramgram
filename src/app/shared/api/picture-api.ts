@@ -24,7 +24,7 @@ export class PictureApi {
   }
 
   getPictureByUserId(id: Signal<number | string>) {
-    return httpResource<Picture[]>(() => '/api/picture/user/' + id());
+    return httpResource<Page<Picture>>(() => '/api/picture/user/' + id());
   }
 
   likePicture(id: number) {

@@ -31,6 +31,8 @@ export interface Picture {
   createdAt: Date;
   author: User;
   likes: User[];
+  imageLink: string;
+  thumbnailLink: string;
 }
 
 export interface Comment {
