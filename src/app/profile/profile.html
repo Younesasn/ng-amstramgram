@@ -1,7 +1,36 @@
-<section class="mt-7">
-  <div class="flex gap-6">
-    <img src="" alt="" class="h-36 w-36 bg-amber-300 rounded-full" />
-    <div class="">
+<section class="flex flex-col gap-6 mt-7">
+  <div class="flex gap-10 items-center-safe">
+    <div class="h-60 w-60 flex items-center justify-center">
+      <img src="/images/pdp.png" alt="profil pic" class="h-36 w-36 rounded-full" />
+    </div>
+    <div class="flex flex-col gap-4">
+      <h2>
+        {{ pictures.value()?.content?.[0]?.author?.displayName }}
+      </h2>
+      <div class="flex gap-4">
+        <div class="flex gap-1">
+          <p>{{ pictures.value()?.content?.length ?? 0 }}</p>
+          <p>publications</p>
+        </div>
+        <div class="flex gap-1">
+          <p>
+            {{ totalLikes() }}
+          </p>
+          <p>likes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="grid grid-cols-3 gap-[1px]">
+      @for (picture of pictures.value()?.content; track $index) {
+        <a [routerLink]="`/post/` + picture.id" class="hover:scale-105 transition-all">
+          <img [src]="picture.image" alt="" />
+        </a>
+      }
+      <a routerLink="/" class="flex justify-center items-center hover:scale-110 transition-all">
+        <lucide-angular [img]="SquarePlus" class="h-16 w-16" color="white" />
+      </a>
     </div>
   </div>
 </section>

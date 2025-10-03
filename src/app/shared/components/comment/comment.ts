@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, signal, effect } from '@angular/core';
 import { PictureApi } from '../../api/picture-api';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import {
@@ -13,6 +13,7 @@ import {
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommentApi } from '../../api/comment-api';
 import { Location } from '@angular/common';
+import { AuthApi } from '../../api/auth-api';
 
 @Component({
   selector: 'app-comment',
@@ -28,8 +29,10 @@ export class Comment {
   protected readonly comments = this.commentApi.getComments(this.id);
   protected readonly location = inject(Location);
   protected readonly router = inject(Router);
-  private history: string[] = [];
-
+  private readonly history: string[] = [];
+  private readonly user = inject(AuthApi).user;
+  isLiked = signal<boolean>(false);
+  likes = signal<number>(0);
   readonly Heart = Heart;
   readonly Comment = MessageCircle;
   readonly Send = Send;
@@ -42,11 +45,35 @@ export class Comment {
   });
 
   constructor() {
+    effect(() => {
+      const pic = this.picture.value();
+      if (!pic) return;
+      this.likes.set(pic.likes?.length ?? 0);
+      const currentUserId = this.user()?.id;
+      this.isLiked.set(Boolean(pic.likes?.some((u) => u.id === currentUserId)));
+    });
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.history.push(event.urlAfterRedirects);
       }
     });
+  }
+
+  like() {
+    if (this.picture.hasValue()) {
+      this.pictureApi.likePicture(this.picture.value().id).subscribe({
+        next: () => {
+          if (!this.isLiked()) {
+            this.likes.update((val) => ++val);
+          } else {
+            this.likes.update((val) => --val);
+          }
+          this.isLiked.update((val) => !val);
+        },
+        error: (err) => console.error(err),
+      });
+    }
   }
 
   back(): void {

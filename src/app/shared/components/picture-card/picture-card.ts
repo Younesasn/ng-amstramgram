@@ -24,10 +24,11 @@ export class PictureCard implements OnInit {
   private readonly pictureApi = inject(PictureApi);
   
   ngOnInit() {
-    this.likes.update((_) => this.picture().likes.length);
-    if (this.picture().likes.find((u) => u.id === this.user()?.id)) {
-      this.isLiked.update((_) => true);
-    }
+    const pic = this.picture();
+    if (!pic) return;
+    this.likes.set(pic.likes?.length ?? 0);
+    const currentUserId = this.user()?.id;
+    this.isLiked.set(Boolean(pic.likes?.some((u) => u.id === currentUserId)));
   }
 
   like() {
