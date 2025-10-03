@@ -21,16 +21,24 @@
       </div>
     </div>
   </div>
-  <div class="">
+  <div>
     <div class="grid grid-cols-3 gap-[1px]">
       @for (picture of pictures.value()?.content; track $index) {
         <a [routerLink]="`/post/` + picture.id" class="hover:scale-105 transition-all">
-          <img [src]="picture.image" alt="" />
+          <img
+            [src]="picture.image.startsWith('http') ? picture.image : apiUrl + '/uploads/' + picture.image"
+            alt=""
+          />
         </a>
       }
-      <a routerLink="/" class="flex justify-center items-center hover:scale-110 transition-all">
-        <lucide-angular [img]="SquarePlus" class="h-16 w-16" color="white" />
-      </a>
+      @if (isOwner()) {
+        <a
+          routerLink="/post/new"
+          class="flex justify-center items-center hover:scale-110 transition-all"
+        >
+          <lucide-angular [img]="SquarePlus" class="h-16 w-16" color="white" />
+        </a>
+      }
     </div>
   </div>
 </section>

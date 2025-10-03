@@ -30,4 +30,14 @@ export class PictureApi {
   likePicture(id: number) {
     return this.http.patch<Picture>('/api/picture/' + id + '/like', {});
   }
+
+  addPicture(picture: { title: string; description: string; image: string }) {
+    return this.http.post<Picture>('/api/picture', picture);
+  }
+
+  upload(image: File) {
+    const formData = new FormData();
+    formData.append('image', image);
+    return this.http.post<{ filename: string }>('/api/picture/upload', formData);
+  }
 }

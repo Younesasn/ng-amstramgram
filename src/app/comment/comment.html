@@ -4,9 +4,9 @@
 
 @if (picture.hasValue() && comments.hasValue()) {
   <section class="flex bg-[#202328] rounded-lg w-full">
-    <img [src]="picture.value().image" alt="" class="min-h-[95vh]" />
+    <img [src]="image()" alt="" class="min-h-[85vh]" />
     <!-- Comments section -->
-    <div class="flex-1 flex flex-col justify-between">
+    <div class="flex-1 flex flex-col justify-between bg-[#202328]  min-w-[60vh]">
       <!-- Author -->
       <div class="">
         <div class="flex justify-between w-full p-4">

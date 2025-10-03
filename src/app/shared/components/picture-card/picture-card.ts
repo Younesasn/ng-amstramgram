@@ -1,9 +1,10 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
 import { Picture } from '../../interfaces';
 import { Bookmark, Heart, LucideAngularModule, MessageCircle, Send } from 'lucide-angular';
 import { RouterLink } from '@angular/router';
 import { PictureApi } from '../../api/picture-api';
 import { AuthApi } from '../../api/auth-api';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-picture-card',
@@ -20,9 +21,15 @@ export class PictureCard implements OnInit {
   readonly user = inject(AuthApi).user;
   isLiked = signal<boolean>(false);
   likes = signal<number>(0);
-  
+  private readonly apiUrl = environment.apiUrl;
+  protected readonly image = computed(() =>
+    this.picture()?.image.startsWith('http')
+      ? this.picture()?.image
+      : this.apiUrl + '/uploads/' + this.picture()?.image,
+  );
+
   private readonly pictureApi = inject(PictureApi);
-  
+
   ngOnInit() {
     const pic = this.picture();
     if (!pic) return;

@@ -12,7 +12,7 @@ import { AuthApi } from '../../api/auth-api';
 export class Header {
   protected readonly links = signal([
     { path: '/', name: 'Accueil' },
-    { path: '', name: 'Créer' },
+    { path: 'post/new', name: 'Créer' },
   ]);
   protected readonly authApi = inject(AuthApi);
 }

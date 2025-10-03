@@ -1,5 +1,5 @@
-import { Component, inject, input, signal, effect } from '@angular/core';
-import { PictureApi } from '../../api/picture-api';
+import { Component, inject, input, signal, effect, computed } from '@angular/core';
+import { PictureApi } from '../shared/api/picture-api';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import {
   Bookmark,
@@ -11,9 +11,10 @@ import {
   X,
 } from 'lucide-angular';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommentApi } from '../../api/comment-api';
+import { CommentApi } from '../shared/api/comment-api';
 import { Location } from '@angular/common';
-import { AuthApi } from '../../api/auth-api';
+import { AuthApi } from '../shared/api/auth-api';
+import { environment } from '../shared/environments/environment';
 
 @Component({
   selector: 'app-comment',
@@ -43,6 +44,12 @@ export class Comment {
   form: FormGroup = new FormGroup({
     content: new FormControl('', { validators: [Validators.required, Validators.minLength(1)] }),
   });
+  private readonly apiUrl = environment.apiUrl;
+  protected readonly image = computed(() =>
+    this.picture.value()?.image.startsWith('http')
+      ? this.picture.value()?.image
+      : this.apiUrl + '/uploads/' + this.picture.value()?.image,
+  );
 
   constructor() {
     effect(() => {
