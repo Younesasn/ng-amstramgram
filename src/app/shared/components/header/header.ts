@@ -1,18 +1,19 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthApi } from '../../api/auth-api';
+import { CircleUser, House, LogOut, LucideAngularModule, SquarePlus } from 'lucide-angular';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink, LucideAngularModule],
   templateUrl: './header.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  protected readonly links = signal([
-    { path: '/', name: 'Accueil' },
-    { path: 'post/new', name: 'Créer' },
-  ]);
   protected readonly authApi = inject(AuthApi);
+  protected readonly House = House;
+  protected readonly SquarePlus = SquarePlus;
+  protected readonly Logout = LogOut;
+  protected readonly CircleUser = CircleUser;
 }

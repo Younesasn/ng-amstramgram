@@ -17,9 +17,9 @@ export const routes: Routes = [
       { path: '', component: Home },
       { path: 'profile/:id', component: Profile },
       { path: 'post/new', component: NewPicture },
-      { path: 'post/:id', component: Comment },
     ],
   },
+  { path: 'post/:id', component: Comment },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 ];
