@@ -1,32 +1,37 @@
-<section class="flex flex-col gap-6 mt-7">
-  <div class="flex gap-10 items-center-safe">
-    <div class="h-60 w-60 flex items-center justify-center">
-      <img src="/images/pdp.png" alt="profil pic" class="h-36 w-36 rounded-full" />
-    </div>
-    <div class="flex flex-col gap-4">
-      <h2>
-        {{ pictures.value()?.content?.[0]?.author?.displayName }}
-      </h2>
-      <div class="flex gap-4">
-        <div class="flex gap-1">
-          <p>{{ pictures.value()?.content?.length ?? 0 }}</p>
-          <p>publications</p>
-        </div>
-        <div class="flex gap-1">
-          <p>
-            {{ totalLikes() }}
-          </p>
-          <p>likes</p>
+<section class="flex flex-col max-w-3xl mx-auto gap-10">
+  @if (pictures.isLoading()) {
+    <p>Chargement des Posts... 🪫</p>
+  }
+  @if (pictures.hasValue()) {
+    @let user = pictures.value().content[0].author;
+
+    <div class="flex gap-10 items-center-safe mt-4">
+      <div class="flex items-center justify-center">
+        <img src="/images/pdp.png" alt="profil pic" class="h-36 w-36 rounded-full" />
+      </div>
+      <div class="flex flex-col gap-4">
+        <h2>
+          {{ user.displayName }}
+        </h2>
+        <div class="flex gap-4">
+          <div class="flex gap-1">
+            <p>{{ pictures.value().content.length }}</p>
+            <p>publications</p>
+          </div>
+          <div class="flex gap-1">
+            <p>
+              {{ totalLikes() }}
+            </p>
+            <p>likes</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div>
     <div class="grid grid-cols-3 gap-[1px]">
-      @for (picture of pictures.value()?.content; track $index) {
-        <a [routerLink]="`/post/` + picture.id" class="hover:scale-105 transition-all">
+      @for (pic of pictures.value().content; track $index) {
+        <a [routerLink]="`/post/` + pic.id" class="hover:scale-105 transition-all">
           <img
-            [src]="picture.image.startsWith('http') ? picture.image : apiUrl + '/uploads/' + picture.image"
+            [src]="pic.image.startsWith('http') ? pic.image : apiUrl + '/uploads/' + pic.image"
             alt=""
           />
         </a>
@@ -40,5 +45,8 @@
         </a>
       }
     </div>
-  </div>
+    @if (pictures.value().totalElements > 0) {
+      <app-pagination [pageNumber]="pageNumber()" [paginated]="pictures.value()" />
+    }
+  }
 </section>

@@ -23,8 +23,13 @@ export class PictureApi {
     return httpResource<Picture>(() => '/api/picture/' + id());
   }
 
-  getPictureByUserId(id: Signal<number | string>) {
-    return httpResource<Page<Picture>>(() => '/api/picture/user/' + id());
+  getPictureByUserId(id: Signal<number | string>, page?: Signal<number>) {
+    return httpResource<Page<Picture>>(() => {
+      const params: any = {
+        pageNumber: page ? page() - 1 : 0,
+      };
+      return { url: '/api/picture/user/' + id(), params };
+    });
   }
 
   likePicture(id: number) {
